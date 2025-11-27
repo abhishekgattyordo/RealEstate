@@ -20,17 +20,19 @@ export default function BottomNav() {
           const isActive = location === item.path;
           
           return (
-            <Link key={item.path} href={item.path}>
-              <a
-                className={`flex flex-col items-center justify-center gap-1 px-3 py-2 min-h-16 hover-elevate active-elevate-2 transition-colors ${
-                  isActive ? "text-primary" : "text-muted-foreground"
-                }`}
-                data-testid={`nav-${item.label.toLowerCase()}`}
-              >
-                <Icon className="h-5 w-5" />
-                <span className="text-xs font-medium">{item.label}</span>
-              </a>
-            </Link>
+          <Link key={item.path} href={item.path}>
+  <a
+    className={`flex flex-col items-center justify-center gap-1 px-3 py-2 min-h-16 hover-elevate active-elevate-2 transition-colors
+      ${isActive ? "text-primary" : "text-muted-foreground"}
+      ${item.label === "Reports" ? "mr-3" : ""} 
+    `}
+    data-testid={`nav-${item.label.toLowerCase()}`}
+  >
+    <Icon className="h-5 w-5" />
+    <span className="text-xs font-medium">{item.label}</span>
+  </a>
+</Link>
+
           );
         })}
       </div>

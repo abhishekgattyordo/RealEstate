@@ -1,3 +1,5 @@
+
+
 // import { useEffect, useState } from "react";
 // import { useNavigate } from "react-router-dom";
 // import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
@@ -18,6 +20,33 @@
 //       if (res) setData(res.converted);
 //     });
 //   }, []);
+
+//    const downloadPDF = () => {
+//     const doc = new jsPDF();
+
+//     // Title
+//     doc.setFontSize(16);
+//     doc.text("Total Converted Leads Report", 10, 10);
+
+//     // Prepare Table
+//     const headers = [["Name", "Property", "Mobile", "Date"]];
+//     const rows = data.map((e) => [
+//       e.name,
+//       e.property_name || "-", // Use enriched property_name
+//       e.mobile_number,
+//       e.date,
+//     ]);
+
+//     autoTable(doc, {
+//       startY: 20,
+//       head: headers,
+//       body: rows,
+//       theme: "grid",
+//     headStyles: { fillColor: [73, 17, 128] }, // primary color
+//     });
+
+//     doc.save("total_converted_leads.pdf");
+//   };
 
 //   return (
 //     <div className="p-6">
@@ -76,6 +105,8 @@
 //     </div>
 //   );
 // }
+
+
 
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -156,26 +187,29 @@ export default function TotalConverted() {
           {data.length === 0 ? (
             <p>No converted leads found.</p>
           ) : (
-            <table className="w-full border text-center">
-              <thead className="bg-primary text-white">
-                <tr>
-                  <th className="px-4 py-2">Name</th>
-                  <th className="px-4 py-2">Property</th>
-                  <th className="px-4 py-2">Mobile</th>
-                   <th className="px-4 py-2">Date</th>
-                </tr>
-              </thead>
-              <tbody>
-                {data.map((e) => (
-                  <tr key={e.id} className="border">
-                    <td className="px-4 py-2">{e.name}</td>
-                     <td className="px-4 py-2">{e.properties?.title || "-"}</td>
-                    <td className="px-4 py-2">{e.mobile_number}</td>
-                    <td className="px-4 py-2">{e.date}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+           <div className="overflow-x-auto w-full">
+  <table className="w-full border text-center min-w-[600px]">
+    <thead className="bg-primary text-white">
+      <tr>
+        <th className="px-4 py-2">Name</th>
+        <th className="px-4 py-2">Property</th>
+        <th className="px-4 py-2">Mobile</th>
+        <th className="px-4 py-2">Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      {data.map((e) => (
+        <tr key={e.id} className="border">
+          <td className="px-4 py-2">{e.name}</td>
+          <td className="px-4 py-2">{e.properties?.title || "-"}</td>
+          <td className="px-4 py-2">{e.mobile_number}</td>
+          <td className="px-4 py-2">{e.date}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
+
           )}
         </CardContent>
       </Card>
