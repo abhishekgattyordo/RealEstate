@@ -344,6 +344,7 @@ interface PropertyCardProps {
   listing_type: string;
   area: number; // area in sqft
   onView: (id: string) => void;
+    mobile_number?: string;
   onContact: (id: string) => void;
 }
 
@@ -442,6 +443,7 @@ export default function Properties() {
         ? "Buy"
         : "N/A",
     bedrooms: property.bedrooms,
+    
     bathrooms: property.bathrooms,
     listing_type: property.listing_type,
     area: property.area_sqft,

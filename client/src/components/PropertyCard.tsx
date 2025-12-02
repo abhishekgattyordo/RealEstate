@@ -188,6 +188,8 @@
 //   );
 // }
 
+
+
 import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -236,6 +238,7 @@ export default function PropertyCard({
   const [loggedInUserId, setLoggedInUserId] = useState<string | null>(null);
 
   console.log("PropertyCard prop user_id:", user_id);
+  console.log("PropertyCard Received Number:", mobile_number);
 
   useEffect(() => {
     const loadUser = async () => {
@@ -339,15 +342,16 @@ export default function PropertyCard({
               <Eye className="h-4 w-4 mr-1" />
               View
             </Button>
-           <div className="col-span-2 px-2">
-  <a
-    href={`tel:${mobile_number}`}
-    className="inline-block px-3 py-1 bg-primary text-white font-medium rounded hover:bg-primary-dark transition-colors duration-200"
-  >
-    Contact
-  </a>
-</div>
+            {/* <div className="col-span-2 px-2">
+            <a
+  href={`tel:${mobile_number}`}
+  className="inline-block px-3 py-1 bg-primary text-white font-medium rounded hover:bg-primary-dark transition-colors duration-200"
+  onClick={() => console.log("Calling Number:", mobile_number)}
+>
+  Contact
+</a>
 
+            </div> */}
           </div>
 
           {/* Icons inline with buttons */}
