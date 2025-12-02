@@ -309,25 +309,59 @@ export default function PropertyList({ onFiltered }: PropertyListProps) {
 
   // ---------- Fetch distinct filter options ----------
   
-  useEffect(() => {
-    async function fetchDistinct(column: string) {
+useEffect(() => {
+  async function fetchDistinct(column: string) {
+    try {
+      // 1️⃣ Get logged-in user
+      const {
+        data: { user },
+        error: userError,
+      } = await supabase.auth.getUser();
+
+      if (userError || !user) {
+        console.error("User not found", userError);
+        return [];
+      }
+
+      // 2️⃣ Get user's company_id
+      const { data: userProfile, error: profileError } = await supabase
+        .from("users")
+        .select("company_id")
+        .eq("id", user.id)
+        .maybeSingle();
+
+      if (profileError || !userProfile) {
+        console.error("Company id not found", profileError);
+        return [];
+      }
+
+      const companyId = userProfile.company_id;
+
+      // 3️⃣ Fetch distinct values only for this company_id
       const { data, error } = await supabase
         .from("properties")
         .select(column)
+        .eq("company_id", companyId)
         .not(column, "is", null);
 
       if (!error && data) {
-        const unique = Array.from(
-          new Set(data.map((r: any) => r[column]))
-        ).filter(Boolean);
+        const unique = Array.from(new Set(data.map((r: any) => r[column]))).filter(
+          Boolean
+        );
         return unique.sort();
       }
-      return [];
+    } catch (e) {
+      console.error("Error fetching distinct values:", e);
     }
 
-    fetchDistinct("location").then(setLocations);
-    fetchDistinct("property_type").then(setPropertyTypes);
-  }, []);
+    return [];
+  }
+
+  // Fetch location & property types
+  fetchDistinct("location").then(setLocations);
+  fetchDistinct("property_type").then(setPropertyTypes);
+}, []);
+
 
   // ---------- Apply filters ----------
   const applyFilters = () => {
