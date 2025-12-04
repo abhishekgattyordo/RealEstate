@@ -214,6 +214,7 @@ export interface Property {
   mobile_number?: string;
   user_id?: string | null;
   contact_name?: string;
+  rent_type?: string;
   contact_phone?: string; 
 }
 

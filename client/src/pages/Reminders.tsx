@@ -490,62 +490,7 @@ export default function Reminders() {
     setUpdatingId(null);
   };
 
-  // const notifiedRef = useRef<Set<string>>(new Set());
-  // const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  // // Initialize audio only once
-  // useEffect(() => {
-  //   console.log("Audio initialized");
-  //   audioRef.current = new Audio("/notification.mp3");
-  // }, []);
-
-  // useEffect(() => {
-  //   const checkReminders = () => {
-  //     const now = new Date();
-  //     const nowTime = `${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}`;
-  //     const today = now.toISOString().split("T")[0];
-
-  //     console.log("------ Checking Reminders ------");
-  //     console.log("Current Date:", today);
-  //     console.log("Current Time:", nowTime);
-  //     console.log("All reminders:", reminders);
-
-  //    reminders.forEach((reminder) => {
-  //   const reminderDate = reminder.date.split("T")[0];
-  //   const reminderTime = reminder.time.slice(0, 5); // take first 5 characters
-
-  //   const isMatch =
-  //     reminderDate === today &&
-  //     reminderTime === nowTime &&
-  //     reminder.status === "pending";
-
-  //   if (isMatch && !notifiedRef.current.has(reminder.id)) {
-  //     console.log(">>> TRIGGERING REMINDER:", reminder.id);
-
-  //     audioRef.current?.play().catch(console.error);
-
-  //     toast(`Reminder: ${reminder.title} - Client: ${reminder.clientName}`);
-
-  //     if (Notification.permission === "granted") {
-  //       new Notification(`Reminder: ${reminder.title}`, {
-  //         body: `Client: ${reminder.clientName}\nTime: ${reminder.time}`,
-  //         icon: "/notification-icon.png",
-  //       });
-  //     }
-
-  //     notifiedRef.current.add(reminder.id);
-  //   }
-  // });
-
-  //   };
-
-  //   console.log("Starting interval for checkReminders");
-  //   const interval = setInterval(checkReminders, 10000); // 10 seconds for testing
-  //   return () => {
-  //     console.log("Clearing interval");
-  //     clearInterval(interval);
-  //   };
-  // }, [reminders]);
 
   
  const notifiedRef = useRef<Set<string>>(new Set());

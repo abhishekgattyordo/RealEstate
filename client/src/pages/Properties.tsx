@@ -300,6 +300,7 @@ interface PropertyCardProps {
   listing_type: string;
   area: number; // area in sqft
   description?: string;
+  rent_type?: string;
    property_categories?: string;
    contact_name?: string;
   contact_phone?: string;
@@ -414,6 +415,7 @@ const rentProperties = filteredProperties.filter(
 
     bedrooms: property.bedrooms,
  property_type: property.property_type,
+ rent_type: property.rent_type,
     bathrooms: property.bathrooms,
     description: property.description,
     contact_name: property.contact_name,   // ✅ Add

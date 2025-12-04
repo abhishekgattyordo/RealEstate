@@ -188,6 +188,7 @@
 //   );
 // }
 
+
 import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -210,6 +211,7 @@ interface PropertyCardProps {
   area?: string;
   mobile_number: string;
   property_type?: string;
+  rent_type?: string;
   contact_name?: string; // ✅ Add this
   contact_phone?: string;
   property_categories?: string;
@@ -234,6 +236,7 @@ export default function PropertyCard({
   property_type,
   mobile_number,
   contact_name,
+  rent_type,
   property_categories,
   contact_phone,
   area,
@@ -334,14 +337,14 @@ export default function PropertyCard({
 
         <div className="text-xl font-bold text-primary">{price}</div>
 
-        {(property_type || property_categories) && (
+        {(rent_type || property_type) && (
           <div className="text-sm font-medium text-muted-foreground mt-1">
-            {property_type && <span>Type: {property_type}</span>}
-            {property_type && property_categories && (
+            {rent_type && <span>Type: {rent_type}</span>}
+            {rent_type && property_type && (
               <span className="mx-2">|</span>
             )}
-            {property_categories && (
-              <span>Category: {property_categories}</span>
+            {property_type && (
+              <span>Category: {property_type}</span>
             )}
           </div>
         )}

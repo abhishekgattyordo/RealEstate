@@ -893,14 +893,9 @@ export default function AddPropertyForm({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    if (!formData.listingType) {
-      alert("⚠️ Please select a Listing Type");
-      setIsSubmitting(false);
-      return;
-    }
 
     // --- Validation block ---
-    if (!formData.propertyType) {
+    if (!formData.rentType) {
       toast.error("⚠️ Please select a Property Type");
       setIsSubmitting(false);
       return;
@@ -998,10 +993,9 @@ export default function AddPropertyForm({
           .update({
             listing_type: formData.listingType,
             title: formData.title,
-            property_categories: propertyCategory,
+            property_type: propertyCategory,
             location: formData.location,
             price: parseFloat(formData.price),
-            property_type: formData.rentType,
             area_sqft: parseFloat(formData.area),
             bedrooms: parseInt(formData.bedrooms),
             bathrooms: parseInt(formData.bathrooms),
@@ -1032,7 +1026,6 @@ export default function AddPropertyForm({
               title: formData.title,
               location: formData.location,
               price: parseFloat(formData.price),
-              property_type: formData.rentType,
               area_sqft: parseFloat(formData.area),
               bedrooms: parseInt(formData.bedrooms),
               bathrooms: parseInt(formData.bathrooms),
@@ -1041,7 +1034,7 @@ export default function AddPropertyForm({
               contact_phone: formData.contactPhone,
               rent_type: formData.rentType,
               images: allImages,
-              property_categories: propertyCategory,
+              property_type: propertyCategory,
               created_at: new Date().toISOString(),
             },
           ])
@@ -1201,25 +1194,6 @@ export default function AddPropertyForm({
             </div>
           </div>
 
-          {/* Property Type */}
-          <div className="space-y-2">
-            <Label htmlFor="propertyType">Property Type *</Label>
-            <Select
-              value={formData.propertyType}
-              onValueChange={(value) => updateField("propertyType", value)}
-            >
-              <SelectTrigger id="propertyType">
-                <SelectValue placeholder="Select type" />
-              </SelectTrigger>
-              <SelectContent>
-                {propertyTypeOptions.map((option) => (
-                  <SelectItem key={option.id} value={option.name}>
-                    {option.name}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
 
           {/* Bedrooms & Bathrooms */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
