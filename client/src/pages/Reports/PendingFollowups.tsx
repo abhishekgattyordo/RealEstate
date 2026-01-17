@@ -389,7 +389,7 @@ export default function PendingFollowups() {
   };
 
   return (
-    <div className="px-3 sm:px-4 max-w-7xl mx-automb-16">
+    <div className="px-3 sm:px-4 max-w-7xl mx-auto mb-16">
       {/* Header with buttons */}
       <div className="flex flex-col sm:flex-row gap-4 mb-6">
         <div className="flex items-center gap-2">
