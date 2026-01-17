@@ -435,7 +435,7 @@ const rentProperties = filteredProperties.filter(
 
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 mb-16">
       {/* Header */}
       <div className="flex items-center justify-between gap-4 flex-wrap">
         <div>

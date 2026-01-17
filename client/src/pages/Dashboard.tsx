@@ -641,7 +641,7 @@ export default function Dashboard() {
   const COLORS = ["#8884d8", "#82ca9d", "#ffc658", "#ff8042"];
 
   return (
-    <div className="space-y-8 p-4">
+    <div className="space-y-8 p-4 mb-16">
       <h2 className="text-2xl md:text-3xl font-bold text-primary">Dashboard</h2>
       <p className="text-muted-foreground mb-4">
         Welcome back! Here's your overview

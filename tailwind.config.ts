@@ -110,20 +110,18 @@
 
 
 
+
 import type { Config } from "tailwindcss";
 
 export default {
   darkMode: ["class"],
-    content: [
-    "./client/src/**/*.{js,jsx,ts,tsx}",
-    "./client/index.html"
-  ],
+  content: ["./client/src/**/*.{js,jsx,ts,tsx}", "./client/index.html"],
   theme: {
     extend: {
       borderRadius: {
-        lg: ".5625rem", /* 9px */
-        md: ".375rem", /* 6px */
-        sm: ".1875rem", /* 3px */
+        lg: ".5625rem" /* 9px */,
+        md: ".375rem" /* 6px */,
+        sm: ".1875rem" /* 3px */,
       },
       colors: {
         background: "hsl(var(--background) / <alpha-value>)",
@@ -140,17 +138,17 @@ export default {
           foreground: "hsl(var(--popover-foreground) / <alpha-value>)",
           border: "hsl(var(--popover-border) / <alpha-value>)",
         },
-       primary: {
-  DEFAULT: "#491180", // Your custom purple color
-  foreground: "#FFFFFF", // Text color on primary background
-  border: "#3a0d66", // Slightly darker border shade
-},
+        primary: {
+          DEFAULT: "#491180", // Your custom purple color
+          foreground: "#FFFFFF", // Text color on primary background
+          border: "#3a0d66", // Slightly darker border shade
+        },
 
-       secondary: {
-  DEFAULT: "#000000", // Pure black
-  foreground: "#2F2F2F", // White text on black
-  border: "#1a1a1a", // Dark gray border for subtle contrast
-},
+        secondary: {
+          DEFAULT: "#000000", // Pure black
+          foreground: "#2F2F2F", // White text on black
+          border: "#1a1a1a", // Dark gray border for subtle contrast
+        },
         muted: {
           DEFAULT: "hsl(var(--muted) / <alpha-value>)",
           foreground: "hsl(var(--muted-foreground) / <alpha-value>)",
@@ -188,7 +186,7 @@ export default {
         "sidebar-accent": {
           DEFAULT: "hsl(var(--sidebar-accent) / <alpha-value>)",
           foreground: "hsl(var(--sidebar-accent-foreground) / <alpha-value>)",
-          border: "var(--sidebar-accent-border)"
+          border: "var(--sidebar-accent-border)",
         },
         status: {
           online: "rgb(34 197 94)",

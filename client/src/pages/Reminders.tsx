@@ -587,7 +587,7 @@ useEffect(() => {
 
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 mb-16">
       <div className="flex items-center justify-between gap-4 flex-wrap">
         <div>
           <h2 className="text-2xl md:text-3xl font-bold">Reminders</h2>

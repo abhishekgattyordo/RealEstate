@@ -136,8 +136,6 @@
 //   );
 // }
 
-
-
 import { Switch, Route } from "wouter";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
@@ -197,41 +195,41 @@ function Router() {
       </Route>
       <Route path="/auth/callback" component={AuthCallbackPage} />
       <Route path="/reset-password" component={ResetPassword} />
-       <Route path="/z" component={UsersReport} />
-     {/* Reports Dashboard */}
-<Route path="/reports">
-  <AppLayout>
-    <ReportsDashboard />
-  </AppLayout>
-</Route>
+      <Route path="/z" component={UsersReport} />
+      {/* Reports Dashboard */}
+      <Route path="/reports">
+        <AppLayout>
+          <ReportsDashboard />
+        </AppLayout>
+      </Route>
 
-{/* Pending Followups */}
-<Route path="/reports/pending-followups">
-  <AppLayout>
-    <PendingFollowups />
-  </AppLayout>
-</Route>
+      {/* Pending Followups */}
+      <Route path="/reports/pending-followups">
+        <AppLayout>
+          <PendingFollowups />
+        </AppLayout>
+      </Route>
 
-{/* Total Converted */}
-<Route path="/reports/converted">
-  <AppLayout>
-    <TotalConverted />
-  </AppLayout>
-</Route>
+      {/* Total Converted */}
+      <Route path="/reports/converted">
+        <AppLayout>
+          <TotalConverted />
+        </AppLayout>
+      </Route>
 
-{/* Lost Leads */}
-<Route path="/reports/lost-leads">
-  <AppLayout>
-    <LostLeads />
-  </AppLayout>
-</Route>
+      {/* Lost Leads */}
+      <Route path="/reports/lost-leads">
+        <AppLayout>
+          <LostLeads />
+        </AppLayout>
+      </Route>
 
-{/* Leads by Location */}
-<Route path="/reports/leads-by-location">
-  <AppLayout>
-    <LeadsByLocation />
-  </AppLayout>
-</Route>
+      {/* Leads by Location */}
+      <Route path="/reports/leads-by-location">
+        <AppLayout>
+          <LeadsByLocation />
+        </AppLayout>
+      </Route>
 
       <Route path="/properties/view/:id">
         <AppLayout>
@@ -241,8 +239,6 @@ function Router() {
     </Switch>
   );
 }
-
-
 
 // import { useState } from "react";
 // import Sidebar from "./pages/Sidebar";
@@ -354,11 +350,7 @@ function Router() {
 //   );
 // }
 
-
-
-
-
-import { useState} from "react";
+import { useState } from "react";
 
 import Sidebar from "./pages/Sidebar";
 
@@ -370,7 +362,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
 
   const [userId, setUserId] = useState<string | null>(null);
   const [companyId, setCompanyId] = useState<string | null>(null);
-const [showAll, setShowAll] = useState(false); // false = show only unread
+  const [showAll, setShowAll] = useState(false); // false = show only unread
 
   const [notifications, setNotifications] = useState<any[]>([]);
   const [notificationCount, setNotificationCount] = useState(0);
@@ -399,50 +391,42 @@ const [showAll, setShowAll] = useState(false); // false = show only unread
     getUser();
   }, []);
 
-  
-
   const fetchNotifications = async () => {
-  if (!userId || !companyId) return;
+    if (!userId || !companyId) return;
 
-  try {
-    // 1️⃣ Get all activity IDs the user has already read
-    const { data: readData, error: readError } = await supabase
-      .from("activity_read_status")
-      .select("activity_id")
-      .eq("user_id", userId);
+    try {
+      // 1️⃣ Get all activity IDs the user has already read
+      const { data: readData, error: readError } = await supabase
+        .from("activity_read_status")
+        .select("activity_id")
+        .eq("user_id", userId);
 
-    if (readError) throw readError;
+      if (readError) throw readError;
 
-    const readIds = readData?.map(r => r.activity_id) || [];
+      const readIds = readData?.map((r) => r.activity_id) || [];
 
-    // 2️⃣ Fetch unread activities for this company
-    let query = supabase
-      .from("activity_feed")
-      .select("*")
-      .eq("company_id", companyId)
-      .order("created_at", { ascending: false });
+      // 2️⃣ Fetch unread activities for this company
+      let query = supabase
+        .from("activity_feed")
+        .select("*")
+        .eq("company_id", companyId)
+        .order("created_at", { ascending: false });
 
-    // Exclude read activities
-   if (readIds.length > 0) {
-  query = query.not("id", "in", `(${readIds.join(",")})`);
-}
+      // Exclude read activities
+      if (readIds.length > 0) {
+        query = query.not("id", "in", `(${readIds.join(",")})`);
+      }
 
+      const { data, error } = await query;
+      if (error) throw error;
 
-    const { data, error } = await query;
-    if (error) throw error;
-
-    // 3️⃣ Update state
-    setNotifications(data || []);
-    setNotificationCount(data?.length || 0);
-
-  } catch (err: any) {
-    console.error("Error fetching notifications:", err.message || err);
-  }
-};
-
-
-
-
+      // 3️⃣ Update state
+      setNotifications(data || []);
+      setNotificationCount(data?.length || 0);
+    } catch (err: any) {
+      console.error("Error fetching notifications:", err.message || err);
+    }
+  };
 
   // Mark a notification as read for the current user
   const markAsRead = async (activityId: string) => {
@@ -459,8 +443,8 @@ const [showAll, setShowAll] = useState(false); // false = show only unread
       if (error) throw error;
 
       // Remove notification from UI
-      setNotifications(prev => prev.filter(n => n.id !== activityId));
-      setNotificationCount(prev => Math.max(prev - 1, 0));
+      setNotifications((prev) => prev.filter((n) => n.id !== activityId));
+      setNotificationCount((prev) => Math.max(prev - 1, 0));
     } catch (err: any) {
       console.error("Mark as read failed:", err.message || err);
     }
@@ -481,7 +465,11 @@ const [showAll, setShowAll] = useState(false); // false = show only unread
             onClick={() => setSidebarOpen(false)}
             className="flex items-center gap-2 text-2xl font-bold text-primary hover:text-blue-700 transition"
           >
-            <img src="/logo-round.png" alt="Logo" className="h-10 w-10 object-contain" />
+            <img
+              src="/logo-round.png"
+              alt="Logo"
+              className="h-10 w-10 object-contain"
+            />
             <span>Real Estate CRM</span>
           </Link>
         }
@@ -497,7 +485,9 @@ const [showAll, setShowAll] = useState(false); // false = show only unread
         <div className="hidden md:block fixed top-[2px] left-0 h-[calc(100vh-64px)] z-30">
           <Sidebar collapsed={collapsed} setCollapsed={setCollapsed} />
         </div>
-        {sidebarOpen && <Sidebar isMobile onClose={() => setSidebarOpen(false)} />}
+        {sidebarOpen && (
+          <Sidebar isMobile onClose={() => setSidebarOpen(false)} />
+        )}
 
         {/* Main content */}
         <main
@@ -513,7 +503,6 @@ const [showAll, setShowAll] = useState(false); // false = show only unread
     </div>
   );
 }
-
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";

@@ -78,7 +78,7 @@ server.listen(port, "0.0.0.0", () => {
 
 
 // // ✅ Fix for Windows
-// server.listen(port, "localhost", () => {
+// server.listen(port, () => {
 //   log(`✅ Server running at http://localhost:${port}`);
 // });
 

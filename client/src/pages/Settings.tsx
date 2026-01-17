@@ -10,7 +10,7 @@ export default function Settings() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 mb-16">
       <div>
         <h2 className="text-2xl md:text-3xl font-bold text-primary">Settings</h2>
         <p className="text-muted-foreground">Manage your account and preferences</p>

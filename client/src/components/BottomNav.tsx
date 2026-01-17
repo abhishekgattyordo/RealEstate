@@ -14,25 +14,25 @@ export default function BottomNav() {
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-50 bg-card border-t border-card-border md:hidden">
-      <div className="flex justify-around items-center h-16">
+      <div className="flex justify-between items-center h-16 px-2">
         {navItems.map((item) => {
           const Icon = item.icon;
           const isActive = location === item.path;
-          
-          return (
-          <Link key={item.path} href={item.path}>
-  <a
-    className={`flex flex-col items-center justify-center gap-1 px-3 py-2 min-h-16 hover-elevate active-elevate-2 transition-colors
-      ${isActive ? "text-primary" : "text-muted-foreground"}
-      ${item.label === "Reports" ? "mr-3" : ""} 
-    `}
-    data-testid={`nav-${item.label.toLowerCase()}`}
-  >
-    <Icon className="h-5 w-5" />
-    <span className="text-xs font-medium">{item.label}</span>
-  </a>
-</Link>
 
+          return (
+            <Link key={item.path} href={item.path}>
+              <a
+                className={`flex flex-col items-center justify-center gap-1 px-1 py-2 min-h-16 w-full hover-elevate active-elevate-2 transition-colors
+      ${isActive ? "text-primary" : "text-muted-foreground"}
+    `}
+                data-testid={`nav-${item.label.toLowerCase()}`}
+              >
+                <Icon className="h-5 w-5" />
+                <span className="text-xs font-medium truncate max-w-full">
+                  {item.label}
+                </span>
+              </a>
+            </Link>
           );
         })}
       </div>
