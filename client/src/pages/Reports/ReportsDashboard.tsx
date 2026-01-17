@@ -480,63 +480,86 @@ const ReportsDashboard = () => {
             </div>
             
             <div className="space-y-3">
-              {loading ? (
-                <div className="text-center py-8">
-                  <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-[#491180]"></div>
-                  <p className="mt-2 text-gray-500">Loading pending followups...</p>
-                </div>
-              ) : getRecentPendingFollowups().length === 0 ? (
-                <div className="text-center py-8 text-gray-500">
-                  <div className="w-16 h-16 mx-auto mb-4 text-gray-300">
-                    <svg className="w-full h-full" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-                    </svg>
-                  </div>
-                  <p className="text-lg text-gray-600">No pending followups found</p>
-                  <p className="text-sm text-gray-500 mt-1">Great! You're all caught up.</p>
-                </div>
-              ) : (
-                getRecentPendingFollowups().map((enquiry, idx) => (
-                  <div
-                    key={idx}
-                    onClick={() => handleActivityClick(enquiry)}
-                    className="flex items-center justify-between p-3 hover:bg-yellow-50 rounded-lg transition-all duration-200 cursor-pointer group border border-transparent hover:border-[#E0B100] hover:shadow-sm"
-                  >
-                    <div className="flex items-center gap-3">
-                      <div className="flex-shrink-0">
-                        <div className="w-10 h-10 rounded-lg bg-yellow-100 flex items-center justify-center">
-                          <span className="text-lg">⏳</span>
-                        </div>
-                      </div>
-                      <div className="min-w-0 flex-1">
-                        <p className="font-medium text-gray-900 truncate group-hover:text-[#491180] transition-colors">
-                          {enquiry.name}
-                        </p>
-                        <div className="flex items-center gap-2 text-sm text-gray-500">
-                          <span>{enquiry.property_name || 'No Property'}</span>
-                          <span>•</span>
-                          <span>{enquiry.time}</span>
-                          {enquiry.mobile_number && (
-                            <>
-                              <span>•</span>
-                              <span>{enquiry.mobile_number}</span>
-                            </>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <span className="text-xs font-medium px-2 py-1 rounded bg-yellow-100 text-yellow-600">
-                        Pending
-                      </span>
-                      <svg className="w-5 h-5 text-gray-400 group-hover:text-[#491180] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                      </svg>
-                    </div>
-                  </div>
-                ))
+  {loading ? (
+    <div className="text-center py-8">
+      <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-[#491180]"></div>
+      <p className="mt-2 text-gray-500">Loading pending followups...</p>
+    </div>
+  ) : getRecentPendingFollowups().length === 0 ? (
+    <div className="text-center py-8 text-gray-500">
+      <div className="w-16 h-16 mx-auto mb-4 text-gray-300">
+        <svg className="w-full h-full" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+        </svg>
+      </div>
+      <p className="text-lg text-gray-600">No pending followups found</p>
+      <p className="text-sm text-gray-500 mt-1">Great! You're all caught up.</p>
+    </div>
+  ) : (
+    getRecentPendingFollowups().map((enquiry, idx) => (
+      <div
+        key={idx}
+        onClick={() => handleActivityClick(enquiry)}
+        className="
+          flex flex-col sm:flex-row
+          sm:items-center sm:justify-between
+          gap-3 p-3
+          hover:bg-yellow-50 rounded-lg
+          transition-all duration-200 cursor-pointer
+          group border border-transparent
+          hover:border-[#E0B100] hover:shadow-sm
+        "
+      >
+        {/* LEFT SECTION */}
+        <div className="flex items-start gap-3 w-full">
+          <div className="flex-shrink-0">
+            <div className="w-10 h-10 rounded-lg bg-yellow-100 flex items-center justify-center">
+              <span className="text-lg">⏳</span>
+            </div>
+          </div>
+
+          <div className="min-w-0 flex-1">
+            <p className="font-medium text-gray-900 break-words sm:truncate group-hover:text-[#491180] transition-colors">
+              {enquiry.name}
+            </p>
+
+            <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-gray-500">
+              <span className="break-words">
+                {enquiry.property_name || 'No Property'}
+              </span>
+              <span className="hidden sm:inline">•</span>
+              <span>{enquiry.time}</span>
+
+              {enquiry.mobile_number && (
+                <>
+                  <span className="hidden sm:inline">•</span>
+                  <span>{enquiry.mobile_number}</span>
+                </>
               )}
             </div>
+          </div>
+        </div>
+
+        {/* RIGHT SECTION */}
+        <div className="flex items-center justify-between sm:justify-end gap-2">
+          <span className="text-xs font-medium px-2 py-1 rounded bg-yellow-100 text-yellow-600">
+            Pending
+          </span>
+
+          <svg
+            className="w-5 h-5 text-gray-400 group-hover:text-[#491180] transition-colors hidden sm:block"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          </svg>
+        </div>
+      </div>
+    ))
+  )}
+</div>
+
             
             {/* Pending Followup Stats */}
             <div className="mt-6 pt-6 border-t border-gray-100 grid grid-cols-3 gap-4">
